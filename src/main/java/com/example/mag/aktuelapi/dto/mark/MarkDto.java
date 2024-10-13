@@ -1,4 +1,4 @@
-package com.example.mag.aktuelapi.dto;
+package com.example.mag.aktuelapi.dto.mark;
 
 public class MarkDto {
 

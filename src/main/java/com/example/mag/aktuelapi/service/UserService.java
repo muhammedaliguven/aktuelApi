@@ -1,6 +1,6 @@
 package com.example.mag.aktuelapi.service;
 
-import com.example.mag.aktuelapi.dto.UserDto;
+import com.example.mag.aktuelapi.dto.user.UserDto;
 import com.example.mag.aktuelapi.model.User;
 import com.example.mag.aktuelapi.repository.UserRepository;
 import org.springframework.stereotype.Service;

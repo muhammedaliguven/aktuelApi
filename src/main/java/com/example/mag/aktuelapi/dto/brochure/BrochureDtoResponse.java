@@ -1,4 +1,7 @@
-package com.example.mag.aktuelapi.dto;
+package com.example.mag.aktuelapi.dto.brochure;
+
+import com.example.mag.aktuelapi.dto.category.CategoryDto;
+import com.example.mag.aktuelapi.dto.mark.MarkDto;
 
 import java.time.LocalDate;
 

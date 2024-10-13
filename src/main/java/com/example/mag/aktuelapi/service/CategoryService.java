@@ -1,6 +1,6 @@
 package com.example.mag.aktuelapi.service;
 
-import com.example.mag.aktuelapi.dto.CategoryDto;
+import com.example.mag.aktuelapi.dto.category.CategoryDto;
 import com.example.mag.aktuelapi.model.Category;
 import com.example.mag.aktuelapi.repository.CategoryRepository;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.example.mag.aktuelapi.controller;
 
-import com.example.mag.aktuelapi.dto.BrochureDtoRequset;
-import com.example.mag.aktuelapi.dto.BrochureDtoResponse;
+import com.example.mag.aktuelapi.dto.brochure.BrochureDtoRequset;
+import com.example.mag.aktuelapi.dto.brochure.BrochureDtoResponse;
 import com.example.mag.aktuelapi.model.Brochure;
 import com.example.mag.aktuelapi.service.BrochureService;
 import org.springframework.web.bind.annotation.*;

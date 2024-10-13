@@ -1,6 +1,6 @@
 package com.example.mag.aktuelapi.controller;
 
-import com.example.mag.aktuelapi.dto.UserDto;
+import com.example.mag.aktuelapi.dto.user.UserDto;
 import com.example.mag.aktuelapi.service.UserService;
 import org.springframework.web.bind.annotation.*;
 

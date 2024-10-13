@@ -1,4 +1,4 @@
-package com.example.mag.aktuelapi.dto;
+package com.example.mag.aktuelapi.dto.category;
 
 public class CategoryDto {
 

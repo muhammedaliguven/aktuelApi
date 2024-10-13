@@ -1,4 +1,4 @@
-package com.example.mag.aktuelapi.dto;
+package com.example.mag.aktuelapi.dto.brochure;
 
 
 import java.time.LocalDate;

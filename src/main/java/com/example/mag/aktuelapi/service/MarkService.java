@@ -1,6 +1,7 @@
 package com.example.mag.aktuelapi.service;
 
-import com.example.mag.aktuelapi.dto.MarkDto;
+import com.example.mag.aktuelapi.dto.mark.MarkDeleteDto;
+import com.example.mag.aktuelapi.dto.mark.MarkDto;
 import com.example.mag.aktuelapi.model.Mark;
 import com.example.mag.aktuelapi.repository.MarkRepository;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,22 @@ public class MarkService {
         markRepository.save(mark);
         return mark;
     }
+
+    public Mark updateMark(Long id, Mark mark) {
+        return markRepository.findById(id).map(product -> {
+            product.setName(mark.getName());
+            product.setLink(mark.getLink());
+            return markRepository.save(product);
+        }).orElseThrow(() -> new RuntimeException("Mark not found"));
+    }
+    public void delete (Long id){
+       if(markRepository.existsById(id)){
+           markRepository.deleteById(id);
+       }
+       else {
+           throw new RuntimeException("Kayıt bulunamadı");
+       }
+    }
+
 
 }

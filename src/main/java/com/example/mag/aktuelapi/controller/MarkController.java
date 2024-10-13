@@ -1,8 +1,10 @@
 package com.example.mag.aktuelapi.controller;
 
-import com.example.mag.aktuelapi.dto.MarkDto;
+import com.example.mag.aktuelapi.dto.mark.MarkDto;
 import com.example.mag.aktuelapi.model.Mark;
 import com.example.mag.aktuelapi.service.MarkService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,4 +31,15 @@ public class MarkController {
         return response;
     }
 
+    @PutMapping("/{id}")
+    public Mark updateMark(@PathVariable Long id, @RequestBody Mark dto ) {
+        Mark response= markService.updateMark(id,dto);
+        return response;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMark(@PathVariable Long id) {
+        markService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
