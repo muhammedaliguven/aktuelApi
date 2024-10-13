@@ -23,24 +23,36 @@ public class CategoryService {
         if (category.isPresent()) {
             return category.get();
         } else {
-        throw  new Exception("Id ye ait  bir category bulunamadı");
+            throw new Exception("Id ye ait  bir category bulunamadı");
         }
     }
-
 
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
-
-
     public Category create(CategoryDto categoryDto) {
-        Category category=new Category();
+        Category category = new Category();
         category.setName(categoryDto.getName());
+        category.setLink(categoryDto.getLink());
         categoryRepository.save(category);
         return category;
     }
 
+    public Category update(Long id, CategoryDto dto) {
+        return categoryRepository.findById(id).map(product -> {
+            product.setName(dto.getName());
+            product.setLink(dto.getLink());
+            return categoryRepository.save(product);
+        }).orElseThrow(() -> new RuntimeException("Mark not found"));
+    }
 
+    public void delete(Long id) {
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Kayıt bulunamadı");
+        }
+    }
 
 }

@@ -24,34 +24,36 @@ public class MarkService {
         if (mark.isPresent()) {
             return mark.get();
         } else {
-            throw  new Exception("Id ye ait  bir mark bulunamadı");
+            throw new Exception("Id ye ait  bir mark bulunamadı");
         }
     }
+
     public List<Mark> findAll() {
         return markRepository.findAll();
     }
 
-    public Mark create(MarkDto markDto) {
-        Mark mark=new Mark();
-        mark.setName(markDto.getName());
+    public Mark create(MarkDto dto) {
+        Mark mark = new Mark();
+        mark.setName(dto.getName());
+        mark.setLink(dto.getLink());
         markRepository.save(mark);
         return mark;
     }
 
-    public Mark updateMark(Long id, Mark mark) {
+    public Mark update(Long id, MarkDto dto) {
         return markRepository.findById(id).map(product -> {
-            product.setName(mark.getName());
-            product.setLink(mark.getLink());
+            product.setName(dto.getName());
+            product.setLink(dto.getLink());
             return markRepository.save(product);
         }).orElseThrow(() -> new RuntimeException("Mark not found"));
     }
-    public void delete (Long id){
-       if(markRepository.existsById(id)){
-           markRepository.deleteById(id);
-       }
-       else {
-           throw new RuntimeException("Kayıt bulunamadı");
-       }
+
+    public void delete(Long id) {
+        if (markRepository.existsById(id)) {
+            markRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Kayıt bulunamadı");
+        }
     }
 
 
