@@ -47,7 +47,7 @@ public class BrochureController {
         return response;
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public Brochure update(@PathVariable Long id, @RequestBody BrochureDtoRequset brochureDto) {
         Brochure response = brochureService.update(id, brochureDto);
         return response;

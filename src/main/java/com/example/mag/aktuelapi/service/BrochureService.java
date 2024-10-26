@@ -37,8 +37,8 @@ public class BrochureService {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
             brochureDtoResponse.setBrochureImage(brochure.getBrochureImage());
-            brochureDtoResponse.setCategoryDto(getCategoryDtoById(brochure.getCategoryId()));
-            brochureDtoResponse.setMarkDto(getMarkDtoById(brochure.getMarkId()));
+            brochureDtoResponse.setCategoryId(brochure.getCategoryId());
+            brochureDtoResponse.setMarkId(brochure.getMarkId());
             brochureDtoResponse.setStartDate(brochure.getStartDate());
             brochureDtoResponse.setEndDate(brochure.getEndDate());
             brochureDtoResponseList.add(brochureDtoResponse);
@@ -53,8 +53,8 @@ public class BrochureService {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
             brochureDtoResponse.setBrochureImage(brochure.getBrochureImage());
-            brochureDtoResponse.setCategoryDto(getCategoryDtoById(brochure.getCategoryId()));
-            brochureDtoResponse.setMarkDto(getMarkDtoById(brochure.getMarkId()));
+            brochureDtoResponse.setCategoryId(brochure.getCategoryId());
+            brochureDtoResponse.setMarkId(brochure.getMarkId());
             brochureDtoResponse.setStartDate(brochure.getStartDate());
             brochureDtoResponse.setEndDate(brochure.getEndDate());
             brochureDtoResponseList.add(brochureDtoResponse);
@@ -70,8 +70,8 @@ public class BrochureService {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
             brochureDtoResponse.setBrochureImage(brochure.getBrochureImage());
-            brochureDtoResponse.setCategoryDto(getCategoryDtoById(brochure.getCategoryId()));
-            brochureDtoResponse.setMarkDto(getMarkDtoById(brochure.getMarkId()));
+            brochureDtoResponse.setCategoryId(brochure.getCategoryId());
+            brochureDtoResponse.setMarkId(brochure.getMarkId());
             brochureDtoResponse.setStartDate(brochure.getStartDate());
             brochureDtoResponse.setEndDate(brochure.getEndDate());
             brochureDtoResponseList.add(brochureDtoResponse);

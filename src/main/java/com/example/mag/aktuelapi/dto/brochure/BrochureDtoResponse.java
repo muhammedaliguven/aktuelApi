@@ -1,8 +1,5 @@
 package com.example.mag.aktuelapi.dto.brochure;
 
-import com.example.mag.aktuelapi.dto.category.CategoryDto;
-import com.example.mag.aktuelapi.dto.mark.MarkDto;
-
 import java.time.LocalDate;
 
 public class BrochureDtoResponse {
@@ -11,8 +8,8 @@ public class BrochureDtoResponse {
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private MarkDto markDto;
-    private CategoryDto categoryDto;
+    private Long categoryId;
+    private Long markId;
     private String brochureImage;
 
     public BrochureDtoResponse() {
@@ -42,21 +39,22 @@ public class BrochureDtoResponse {
         this.endDate = endDate;
     }
 
-    public MarkDto getMarkDto() {
-        return markDto;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setMarkDto(MarkDto markDto) {
-        this.markDto = markDto;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public CategoryDto getCategoryDto() {
-        return categoryDto;
+    public Long getMarkId() {
+        return markId;
     }
 
-    public void setCategoryDto(CategoryDto categoryDto) {
-        this.categoryDto = categoryDto;
+    public void setMarkId(Long markId) {
+        this.markId = markId;
     }
+
 
     public String getBrochureImage() {
         return brochureImage;
