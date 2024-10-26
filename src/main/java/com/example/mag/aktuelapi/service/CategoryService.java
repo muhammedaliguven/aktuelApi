@@ -18,13 +18,8 @@ public class CategoryService {
     }
 
 
-    public Category getCategoryId(Long id) throws Exception {
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category.isPresent()) {
-            return category.get();
-        } else {
-            throw new Exception("Id ye ait  bir category bulunamadı");
-        }
+    public Optional<Category> getCategoryId(Long id) {
+       return categoryRepository.findById(id);
     }
 
     public List<Category> findAll() {

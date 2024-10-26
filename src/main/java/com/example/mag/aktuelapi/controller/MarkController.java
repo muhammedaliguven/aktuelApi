@@ -1,6 +1,5 @@
 package com.example.mag.aktuelapi.controller;
 
-import com.example.mag.aktuelapi.dto.mark.MarkDeleteDto;
 import com.example.mag.aktuelapi.dto.mark.MarkDto;
 import com.example.mag.aktuelapi.model.Mark;
 import com.example.mag.aktuelapi.service.MarkService;
@@ -21,25 +20,22 @@ public class MarkController {
     }
 
     @GetMapping("/getAll")
-    public List<Mark> getMarks() {
-        List<Mark> marks = markService.findAll();
-        return marks;
+    public List<Mark> getAll() {
+        return markService.getAll();
     }
 
     @PostMapping("/create")
-    public Mark createMark(@RequestBody MarkDto dto) {
-        Mark response = markService.create(dto);
-        return response;
+    public Mark create(@RequestBody MarkDto dto) {
+        return markService.create(dto);
     }
 
     @PutMapping("update/{id}")
-    public Mark updateMark(@PathVariable Long id, @RequestBody MarkDto dto) {
-        Mark response = markService.update(id, dto);
-        return response;
+    public Mark update(@PathVariable Long id, @RequestBody MarkDto dto) {
+        return markService.update(id, dto);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteMark(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         markService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

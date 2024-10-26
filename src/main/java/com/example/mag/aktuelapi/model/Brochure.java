@@ -11,7 +11,6 @@ public class Brochure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "startDate")
     private LocalDate startDate;
     @Column(name = "endDate")

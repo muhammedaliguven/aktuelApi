@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class BrochureDtoResponse {
 
 
+    private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
     private MarkDto markDto;
@@ -15,6 +16,14 @@ public class BrochureDtoResponse {
     private String brochureImage;
 
     public BrochureDtoResponse() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getStartDate() {

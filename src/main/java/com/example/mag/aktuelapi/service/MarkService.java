@@ -1,6 +1,5 @@
 package com.example.mag.aktuelapi.service;
 
-import com.example.mag.aktuelapi.dto.mark.MarkDeleteDto;
 import com.example.mag.aktuelapi.dto.mark.MarkDto;
 import com.example.mag.aktuelapi.model.Mark;
 import com.example.mag.aktuelapi.repository.MarkRepository;
@@ -19,16 +18,11 @@ public class MarkService {
         this.markRepository = markRepository;
     }
 
-    public Mark getMarkId(Long id) throws Exception {
-        Optional<Mark> mark = markRepository.findById(id);
-        if (mark.isPresent()) {
-            return mark.get();
-        } else {
-            throw new Exception("Id ye ait  bir mark bulunamadı");
-        }
+    public Optional<Mark> getMarkId(Long id) {
+        return markRepository.findById(id);
     }
 
-    public List<Mark> findAll() {
+    public List<Mark> getAll() {
         return markRepository.findAll();
     }
 
