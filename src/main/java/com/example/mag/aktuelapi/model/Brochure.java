@@ -17,21 +17,26 @@ public class Brochure {
     private LocalDate endDate;
     @Column(name = "markId")
     private Long markId;
-    @Column(name = "categoryId")
-    private Long categoryId;;
-    @Column(name = "brochureImage")
-    private String brochureImage;
+    @Lob
+    @Column(name = "pdfData", columnDefinition = "MEDIUMBLOB") // Alanı BLOB olarak tanımlar
+    private byte[] pdfData;
+    @Column(name = "pdfUrl")
+    private String pdfUrl;
+    @Column(name = "description")
+    private String title;
+
 
     public Brochure() {
     }
 
-    public Brochure(Long id, LocalDate startDate, LocalDate endDate, Long markId, Long categoryId,String brochureImage) {
+    public Brochure(Long id, LocalDate startDate, LocalDate endDate, Long markId, byte[] pdfData, String pdfUrl, String title) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.markId = markId;
-        this.categoryId = categoryId;
-        this.brochureImage = brochureImage;
+        this.pdfData = pdfData;
+        this.pdfUrl = pdfUrl;
+        this.title = title;
     }
 
     public Long getId() {
@@ -41,7 +46,6 @@ public class Brochure {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public LocalDate getStartDate() {
         return startDate;
@@ -67,19 +71,29 @@ public class Brochure {
         this.markId = markId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public byte[] getPdfData() {
+        return pdfData;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setPdfData(byte[] pdfData) {
+        this.pdfData = pdfData;
     }
 
-    public String getBrochureImage() {
-        return brochureImage;
+    public String getPdfUrl() {
+        return pdfUrl;
     }
 
-    public void setBrochureImage(String brochureImage) {
-        this.brochureImage = brochureImage;
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String description) {
+        this.title = description;
+    }
+
+
 }

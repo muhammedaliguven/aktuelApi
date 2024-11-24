@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface BrochureRepository  extends JpaRepository<Brochure,Long> {
 
-    List<Brochure> findByCategoryId(Long categoryId);
 
     List<Brochure> findByMarkId(Long markId);
 

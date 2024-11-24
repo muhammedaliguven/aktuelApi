@@ -39,4 +39,11 @@ public class MarkController {
         markService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/getByCategoryId/{categoryId}")
+    public List<Mark> getByCategoryId(@PathVariable Long categoryId) {
+        List<Mark> markList = markService.getMarkByCategoryId(categoryId);
+        return markList;
+    }
+
 }

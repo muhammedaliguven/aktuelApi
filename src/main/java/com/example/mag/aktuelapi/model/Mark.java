@@ -14,8 +14,10 @@ public class Mark {
     private String name;
 
     @Column(name = "link")
-
     private String link;
+
+    @Column(name = "categoryId")
+    private Long categoryId;
 
     public String getLink() {
         return link;
@@ -24,7 +26,6 @@ public class Mark {
     public void setLink(String link) {
         this.link = link;
     }
-
 
     public Long getId() {
         return id;
@@ -40,5 +41,13 @@ public class Mark {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

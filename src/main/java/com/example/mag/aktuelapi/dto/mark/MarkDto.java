@@ -4,9 +4,11 @@ public class MarkDto {
 
     private String name;
     private String link;
+    private Long categoryId;
 
     public MarkDto() {
     }
+
     public MarkDto(String name, String link) {
         this.name = name;
         this.link = link;
@@ -29,5 +31,14 @@ public class MarkDto {
     public void setLink(String link) {
         this.link = link;
     }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
 
 }

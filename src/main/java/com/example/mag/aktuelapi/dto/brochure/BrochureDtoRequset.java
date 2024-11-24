@@ -1,6 +1,8 @@
 package com.example.mag.aktuelapi.dto.brochure;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 
 public class BrochureDtoRequset {
@@ -8,22 +10,11 @@ public class BrochureDtoRequset {
     private LocalDate startDate;
     private LocalDate endDate;
     private Long markId;
-    private Long categoryId;
-    private String brochureImage;
+    private MultipartFile pdfData;
+    private String pdfUrl;
+    private String description;
 
-    public BrochureDtoRequset() {
-    }
-
-    public BrochureDtoRequset(LocalDate startDate, LocalDate endDate, Long markId, Long categoryId, String brochureImage) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.markId = markId;
-        this.categoryId = categoryId;
-        this.brochureImage = brochureImage;
-    }
-
-
-
+    // Getter ve Setter'lar
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -48,19 +39,27 @@ public class BrochureDtoRequset {
         this.markId = markId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public MultipartFile getPdfData() {
+        return pdfData;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setPdfData(MultipartFile pdfData) {
+        this.pdfData = pdfData;
     }
 
-    public String getBrochureImage() {
-        return brochureImage;
+    public String getPdfUrl() {
+        return pdfUrl;
     }
 
-    public void setBrochureImage(String brochureImage) {
-        this.brochureImage = brochureImage;
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

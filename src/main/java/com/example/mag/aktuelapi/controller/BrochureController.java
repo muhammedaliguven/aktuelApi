@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,16 +30,17 @@ public class BrochureController {
     }
 
 
-    @GetMapping("/getByCategoryId/{categoryId}")
-    public List<BrochureDtoResponse> getByCategoryId(@PathVariable Long categoryId) {
-        List<BrochureDtoResponse> brochureDtoResponseList = brochureService.getBrochureByCategoryId(categoryId);
-        return brochureDtoResponseList;
-    }
-
     @GetMapping("/getByMarkId/{markId}")
     public List<BrochureDtoResponse> getByMarkId(@PathVariable Long markId) {
         List<BrochureDtoResponse> brochureDtoResponseList = brochureService.getBrochureByMarkId(markId);
         return brochureDtoResponseList;
+    }
+
+    @GetMapping("/getById/{id}")
+    public BrochureDtoResponse getById(@PathVariable Long id) {
+
+        BrochureDtoResponse brochureDtoResponse = brochureService.getBrochureId(id);
+        return brochureDtoResponse;
     }
 
     @PostMapping("/create")
@@ -47,10 +49,15 @@ public class BrochureController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+ /*  @PutMapping("/update/{id}")
     public Brochure update(@PathVariable Long id, @RequestBody BrochureDtoRequset brochureDto) {
         Brochure response = brochureService.update(id, brochureDto);
         return response;
+    }
+   */
+    @PutMapping("/update/{id}")
+    public Brochure update(@PathVariable Long id, @ModelAttribute BrochureDtoRequset brochureDto) throws IOException {
+        return brochureService.update(id, brochureDto);
     }
 
     @DeleteMapping("delete/{id}")

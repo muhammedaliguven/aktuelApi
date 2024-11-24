@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class BrochureDtoResponse {
 
-
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long categoryId;
     private Long markId;
-    private String brochureImage;
+    private String pdfData;
+    private String pdfUrl;
+    private String description;
 
     public BrochureDtoResponse() {
     }
@@ -39,14 +39,6 @@ public class BrochureDtoResponse {
         this.endDate = endDate;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public Long getMarkId() {
         return markId;
     }
@@ -55,12 +47,27 @@ public class BrochureDtoResponse {
         this.markId = markId;
     }
 
-
-    public String getBrochureImage() {
-        return brochureImage;
+    public String getPdfData() {
+        return pdfData;
     }
 
-    public void setBrochureImage(String brochureImage) {
-        this.brochureImage = brochureImage;
+    public void setPdfData(String pdfData) {
+        this.pdfData = pdfData;
+    }
+
+    public String getPdfUrl() {
+        return pdfUrl;
+    }
+
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
