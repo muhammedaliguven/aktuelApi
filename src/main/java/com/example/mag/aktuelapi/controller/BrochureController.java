@@ -38,24 +38,18 @@ public class BrochureController {
 
     @GetMapping("/getById/{id}")
     public BrochureDtoResponse getById(@PathVariable Long id) {
-
         BrochureDtoResponse brochureDtoResponse = brochureService.getBrochureId(id);
         return brochureDtoResponse;
     }
 
-    @PostMapping("/create")
-    public Brochure create(@RequestBody BrochureDtoRequset brochureDto) throws Exception {
+    @PostMapping(value="/create",consumes = "multipart/form-data")
+    public Brochure create(@ModelAttribute BrochureDtoRequset brochureDto) throws Exception {
         Brochure response = brochureService.create(brochureDto);
         return response;
     }
 
- /*  @PutMapping("/update/{id}")
-    public Brochure update(@PathVariable Long id, @RequestBody BrochureDtoRequset brochureDto) {
-        Brochure response = brochureService.update(id, brochureDto);
-        return response;
-    }
-   */
-    @PutMapping("/update/{id}")
+
+    @PutMapping(value="/update/{id}",consumes = "multipart/form-data")
     public Brochure update(@PathVariable Long id, @ModelAttribute BrochureDtoRequset brochureDto) throws IOException {
         return brochureService.update(id, brochureDto);
     }

@@ -1,26 +1,13 @@
-package com.example.mag.aktuelapi.model;
+package com.example.mag.aktuelapi.dto.mark;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "mark")
-public class Mark {
+public class MarkDtoResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
     private String name;
-
-    @Lob // Large Object
-    @Column(name = "image", columnDefinition = "BLOB")
-    private byte[] image;
-
-    @Column(name = "categoryId")
+    private String image;
     private Long categoryId;
 
-    // Getter ve Setter'lar
     public Long getId() {
         return id;
     }
@@ -37,11 +24,11 @@ public class Mark {
         this.name = name;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

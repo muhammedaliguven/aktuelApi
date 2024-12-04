@@ -13,8 +13,9 @@ public class Category {
     @Column(name = "name")
     String name;
 
-    @Column(name = "link")
-    String link;
+    @Lob // Large Object
+    @Column(name = "image", columnDefinition = "BLOB")
+    private byte[] image;
 
     public Long getId() {
         return id;
@@ -32,11 +33,11 @@ public class Category {
         this.name = name;
     }
 
-    public String getLink() {
-        return link;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

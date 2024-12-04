@@ -20,23 +20,20 @@ public class Brochure {
     @Lob
     @Column(name = "pdfData", columnDefinition = "MEDIUMBLOB") // Alanı BLOB olarak tanımlar
     private byte[] pdfData;
-    @Column(name = "pdfUrl")
-    private String pdfUrl;
     @Column(name = "description")
-    private String title;
+    private String description;
 
 
     public Brochure() {
     }
 
-    public Brochure(Long id, LocalDate startDate, LocalDate endDate, Long markId, byte[] pdfData, String pdfUrl, String title) {
+    public Brochure(Long id, LocalDate startDate, LocalDate endDate, Long markId, byte[] pdfData, String description) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.markId = markId;
         this.pdfData = pdfData;
-        this.pdfUrl = pdfUrl;
-        this.title = title;
+        this.description = description;
     }
 
     public Long getId() {
@@ -79,20 +76,14 @@ public class Brochure {
         this.pdfData = pdfData;
     }
 
-    public String getPdfUrl() {
-        return pdfUrl;
+
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String description) {
-        this.title = description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 

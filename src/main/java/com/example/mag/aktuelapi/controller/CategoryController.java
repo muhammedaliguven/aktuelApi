@@ -1,12 +1,14 @@
 package com.example.mag.aktuelapi.controller;
 
-import com.example.mag.aktuelapi.dto.category.CategoryDto;
+import com.example.mag.aktuelapi.dto.category.CategoryDtoRequest;
+import com.example.mag.aktuelapi.dto.category.CategoryDtoResponse;
 import com.example.mag.aktuelapi.model.Category;
 import com.example.mag.aktuelapi.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,22 +23,20 @@ public class CategoryController {
     }
 
     @GetMapping("/getAll")
-    public List<Category> getBooks() {
-        List<Category> categories = categoryService.findAll();
-        return categories;
+    public List<CategoryDtoResponse> getBooks() {
+        return categoryService.getAll();
     }
 
-    @PostMapping("/create")
-    public Category createBook(@RequestBody CategoryDto categoryDto) {
-        Category response = categoryService.create(categoryDto);
-        return response;
+    @PostMapping(value = "/create", consumes = "multipart/form-data")
+    public Category create(@ModelAttribute CategoryDtoRequest categoryDtoRequest) throws Exception {
+        return categoryService.create(categoryDtoRequest);
     }
 
-    @PutMapping("update/{id}")
-    public Category updateCategory(@PathVariable Long id, @RequestBody CategoryDto dto) {
-        Category response = categoryService.update(id, dto);
-        return response;
+    @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
+    public Category update(@PathVariable Long id, @ModelAttribute CategoryDtoRequest markDto) throws IOException {
+        return categoryService.update(id, markDto);
     }
+
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {

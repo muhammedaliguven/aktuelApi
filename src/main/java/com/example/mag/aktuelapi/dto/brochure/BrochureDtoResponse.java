@@ -9,7 +9,6 @@ public class BrochureDtoResponse {
     private LocalDate endDate;
     private Long markId;
     private String pdfData;
-    private String pdfUrl;
     private String description;
 
     public BrochureDtoResponse() {
@@ -55,13 +54,6 @@ public class BrochureDtoResponse {
         this.pdfData = pdfData;
     }
 
-    public String getPdfUrl() {
-        return pdfUrl;
-    }
-
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
-    }
 
     public String getDescription() {
         return description;

@@ -17,11 +17,9 @@ import java.util.Optional;
 public class BrochureService {
 
     private final BrochureRepository brochureRepository;
-    private final MarkService markService;
 
-    public BrochureService(BrochureRepository brochureRepository, MarkService markService) {
+    public BrochureService(BrochureRepository brochureRepository) {
         this.brochureRepository = brochureRepository;
-        this.markService = markService;
     }
 
 
@@ -31,8 +29,8 @@ public class BrochureService {
         brochureList.forEach(brochure -> {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
-            brochureDtoResponse.setPdfUrl(brochure.getPdfUrl());
-            brochureDtoResponse.setDescription(brochure.getTitle());
+            brochureDtoResponse.setPdfData(Base64.getEncoder().encodeToString(brochure.getPdfData()));
+            brochureDtoResponse.setDescription(brochure.getDescription());
             brochureDtoResponseList.add(brochureDtoResponse);
         });
         return brochureDtoResponseList;
@@ -45,11 +43,10 @@ public class BrochureService {
         if (brochureOptional.isPresent()) {
             brochureDtoResponse.setId(brochureOptional.get().getId());
             brochureDtoResponse.setPdfData(Base64.getEncoder().encodeToString(brochureOptional.get().getPdfData()));
-            brochureDtoResponse.setPdfUrl(brochureOptional.get().getPdfUrl());
             brochureDtoResponse.setMarkId(brochureOptional.get().getMarkId());
             brochureDtoResponse.setStartDate(brochureOptional.get().getStartDate());
             brochureDtoResponse.setEndDate(brochureOptional.get().getEndDate());
-            brochureDtoResponse.setDescription(brochureOptional.get().getTitle());
+            brochureDtoResponse.setDescription(brochureOptional.get().getDescription());
         }
         return brochureDtoResponse;
     }
@@ -61,12 +58,12 @@ public class BrochureService {
         brochureList.forEach(brochure -> {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
-            brochureDtoResponse.setPdfData(Base64.getEncoder().encodeToString(brochure.getPdfData()));
-            brochureDtoResponse.setPdfUrl(brochureDtoResponse.getPdfUrl());
+            brochureDtoResponse.setPdfData(brochure.getPdfData() == null ? "" :
+                    Base64.getEncoder().encodeToString(brochure.getPdfData()));
             brochureDtoResponse.setMarkId(brochure.getMarkId());
             brochureDtoResponse.setStartDate(brochure.getStartDate());
             brochureDtoResponse.setEndDate(brochure.getEndDate());
-            brochureDtoResponse.setDescription(brochure.getTitle());
+            brochureDtoResponse.setDescription(brochure.getDescription());
             brochureDtoResponseList.add(brochureDtoResponse);
         });
         return brochureDtoResponseList;
@@ -74,18 +71,17 @@ public class BrochureService {
 
 
     public Brochure create(BrochureDtoRequset brochureDto) throws IOException {
-        validateRequest(brochureDto.getMarkId());
+     //   validateRequest(brochureDto.getMarkId());
         Brochure brochure = new Brochure();
         brochure.setPdfData(brochureDto.getPdfData().getBytes());
         brochure.setMarkId(brochureDto.getMarkId());
         brochure.setStartDate(brochureDto.getStartDate());
         brochure.setEndDate(brochureDto.getEndDate());
-        brochure.setTitle(brochureDto.getDescription());
-        brochure.setPdfUrl(brochureDto.getPdfUrl());
+        brochure.setDescription(brochureDto.getDescription());
         brochureRepository.save(brochure);
         return brochure;
     }
-
+/*
     private void validateRequest(Long markId) {
         validateMark(markId);
     }
@@ -98,21 +94,18 @@ public class BrochureService {
         }
     }
 
+
+ */
     public Brochure update(Long id, BrochureDtoRequset brochureDto) throws IOException {
         Brochure brochure = brochureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Broşür bulunamadı!"));
-
         brochure.setStartDate(brochureDto.getStartDate());
         brochure.setEndDate(brochureDto.getEndDate());
         brochure.setMarkId(brochureDto.getMarkId());
-
         if (brochureDto.getPdfData() != null) {
             brochure.setPdfData(brochureDto.getPdfData().getBytes());
         }
-
-        brochure.setPdfUrl(brochureDto.getPdfUrl());
-        brochure.setTitle(brochureDto.getDescription());
-
+        brochure.setDescription(brochureDto.getDescription());
         return brochureRepository.save(brochure);
     }
 

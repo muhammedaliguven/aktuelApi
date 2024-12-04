@@ -1,13 +1,15 @@
 package com.example.mag.aktuelapi.service;
 
 import com.example.mag.aktuelapi.dto.brochure.BrochureDtoResponse;
-import com.example.mag.aktuelapi.dto.mark.MarkDto;
-import com.example.mag.aktuelapi.model.Brochure;
-import com.example.mag.aktuelapi.model.Category;
+import com.example.mag.aktuelapi.dto.mark.MarkDtoRequest;
+import com.example.mag.aktuelapi.dto.mark.MarkDtoResponse;
 import com.example.mag.aktuelapi.model.Mark;
 import com.example.mag.aktuelapi.repository.MarkRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,33 +18,43 @@ public class MarkService {
 
 
     private final MarkRepository markRepository;
-    private final CategoryService categoryService;
+    private final BrochureService brochureService;
 
-    public MarkService(MarkRepository markRepository, CategoryService categoryService) {
+    public MarkService(MarkRepository markRepository, BrochureService brochureService) {
         this.markRepository = markRepository;
-        this.categoryService = categoryService;
+        this.brochureService = brochureService;
     }
 
     public Optional<Mark> getMarkId(Long id) {
         return markRepository.findById(id);
     }
 
-    public List<Mark> getAll() {
-        return markRepository.findAll();
+    public List<MarkDtoResponse> getAll() {
+        List<MarkDtoResponse> markDtoListResponse = new ArrayList<>();
+        List<Mark> markList = markRepository.findAll();
+        markList.forEach(mark -> {
+            MarkDtoResponse markDtoResponse = new MarkDtoResponse();
+            markDtoResponse.setId(mark.getId());
+            markDtoResponse.setName(mark.getName());
+            markDtoResponse.setCategoryId(mark.getCategoryId());
+            markDtoResponse.setImage(mark.getImage() == null ? "" : Base64.getEncoder().encodeToString(mark.getImage()));
+            markDtoListResponse.add(markDtoResponse);
+        });
+        return markDtoListResponse;
     }
 
-    public Mark create(MarkDto dto) {
-        validateRequest(dto.getCategoryId());
+    public Mark create(MarkDtoRequest dto) throws IOException {
+   //     validateRequest(dto.getCategoryId());
         Mark mark = new Mark();
         mark.setName(dto.getName());
-        mark.setLink(dto.getLink());
+        mark.setImage(dto.getImage().getBytes());
         mark.setCategoryId(dto.getCategoryId());
         markRepository.save(mark);
         return mark;
     }
-
+/*
     private void validateRequest(Long categoryId) {
-        validateCategory(categoryId);
+       validateCategory(categoryId);
     }
 
     private void validateCategory(Long categoryId) {
@@ -52,26 +64,43 @@ public class MarkService {
         }
     }
 
-    public Mark update(Long id, MarkDto dto) {
-        return markRepository.findById(id).map(product -> {
-            product.setName(dto.getName());
-            product.setLink(dto.getLink());
-            product.setCategoryId(dto.getCategoryId());
-            return markRepository.save(product);
-        }).orElseThrow(() -> new RuntimeException("Mark not found"));
+ */
+
+    public Mark update(Long id, MarkDtoRequest markDto) throws IOException {
+        Mark mark = markRepository.findById(id).orElseThrow(() -> new RuntimeException("Mark not found"));
+        mark.setName(markDto.getName());
+        mark.setCategoryId(markDto.getCategoryId());
+        if (markDto.getImage() != null) {
+            mark.setImage(markDto.getImage().getBytes());
+        }
+        return markRepository.save(mark);
     }
 
     public void delete(Long id) {
         if (markRepository.existsById(id)) {
-            markRepository.deleteById(id);
+            List<BrochureDtoResponse> brochureDtoResponseList = brochureService.getBrochureByMarkId(id);
+            if (brochureDtoResponseList.isEmpty()) {
+                markRepository.deleteById(id);
+            } else {
+                throw new RuntimeException("Bu markaya ait brosür degerleri oldugu icin silemezsiniz");
+            }
         } else {
             throw new RuntimeException("Kayıt bulunamadı");
         }
     }
 
-    public List<Mark> getMarkByCategoryId(Long categoryId) {
+    public List<MarkDtoResponse> getMarkByCategoryId(Long categoryId) {
+        List<MarkDtoResponse> markDtoList = new ArrayList<>();
         List<Mark> markList = markRepository.findByCategoryId(categoryId);
-        return markList;
+        markList.forEach(mark -> {
+            MarkDtoResponse markDto = new MarkDtoResponse();
+            markDto.setId(mark.getId());
+            markDto.setName(mark.getName());
+            markDto.setCategoryId(mark.getCategoryId());
+            markDto.setImage(Base64.getEncoder().encodeToString(mark.getImage()));
+            markDtoList.add(markDto);
+        });
+        return markDtoList;
     }
 
 }

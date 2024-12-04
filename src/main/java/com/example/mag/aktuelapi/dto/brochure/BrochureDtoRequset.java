@@ -11,7 +11,6 @@ public class BrochureDtoRequset {
     private LocalDate endDate;
     private Long markId;
     private MultipartFile pdfData;
-    private String pdfUrl;
     private String description;
 
     // Getter ve Setter'lar
@@ -47,13 +46,6 @@ public class BrochureDtoRequset {
         this.pdfData = pdfData;
     }
 
-    public String getPdfUrl() {
-        return pdfUrl;
-    }
-
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
-    }
 
     public String getDescription() {
         return description;
