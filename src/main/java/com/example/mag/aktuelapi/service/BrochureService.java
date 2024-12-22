@@ -29,7 +29,6 @@ public class BrochureService {
         brochureList.forEach(brochure -> {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
-            brochureDtoResponse.setPdfData(Base64.getEncoder().encodeToString(brochure.getPdfData()));
             brochureDtoResponse.setDescription(brochure.getDescription());
             brochureDtoResponseList.add(brochureDtoResponse);
         });
