@@ -1,6 +1,7 @@
 package com.example.mag.aktuelapi.service;
 
 import com.example.mag.aktuelapi.dto.brochure.BrochureDtoResponse;
+import com.example.mag.aktuelapi.dto.brochure.BrochureSummaryDto;
 import com.example.mag.aktuelapi.dto.mark.MarkDtoRequest;
 import com.example.mag.aktuelapi.dto.mark.MarkDtoResponse;
 import com.example.mag.aktuelapi.model.Mark;
@@ -78,7 +79,7 @@ public class MarkService {
 
     public void delete(Long id) {
         if (markRepository.existsById(id)) {
-            List<BrochureDtoResponse> brochureDtoResponseList = brochureService.getBrochureByMarkId(id);
+            List<BrochureSummaryDto> brochureDtoResponseList = brochureService.getBrochureByMarkId(id);
             if (brochureDtoResponseList.isEmpty()) {
                 markRepository.deleteById(id);
             } else {

@@ -2,8 +2,11 @@ package com.example.mag.aktuelapi.controller;
 
 import com.example.mag.aktuelapi.dto.brochure.BrochureDtoRequset;
 import com.example.mag.aktuelapi.dto.brochure.BrochureDtoResponse;
+import com.example.mag.aktuelapi.dto.brochure.BrochureSummaryDto;
 import com.example.mag.aktuelapi.model.Brochure;
+import com.example.mag.aktuelapi.repository.UserPushTokenRepository;
 import com.example.mag.aktuelapi.service.BrochureService;
+import com.example.mag.aktuelapi.service.PushNotificationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +19,13 @@ import java.util.List;
 public class BrochureController {
 
     private final BrochureService brochureService;
+    private UserPushTokenRepository tokenRepository;
+    private PushNotificationService pushNotificationService;
 
-
-    public BrochureController(BrochureService brochureService) {
+    public BrochureController(BrochureService brochureService, UserPushTokenRepository tokenRepository, PushNotificationService pushNotificationService) {
         this.brochureService = brochureService;
+        this.tokenRepository = tokenRepository;
+        this.pushNotificationService = pushNotificationService;
     }
 
 
@@ -30,10 +36,9 @@ public class BrochureController {
     }
 
 
-    @GetMapping("/getByMarkId/{markId}")
-    public List<BrochureDtoResponse> getByMarkId(@PathVariable Long markId) {
-        List<BrochureDtoResponse> brochureDtoResponseList = brochureService.getBrochureByMarkId(markId);
-        return brochureDtoResponseList;
+    @GetMapping("/getSummaryByMarkId/{markId}")
+    public List<BrochureSummaryDto> getByMarkId(@PathVariable Long markId) {
+        return brochureService.getBrochureByMarkId(markId);
     }
 
     @GetMapping("/getById/{id}")
@@ -42,14 +47,31 @@ public class BrochureController {
         return brochureDtoResponse;
     }
 
-    @PostMapping(value="/create",consumes = "multipart/form-data")
+    @GetMapping("/getSummaryByIds")
+    public List<BrochureDtoResponse> getSummaryByIds(@RequestParam List<Long> ids) {
+        return brochureService.getSummaryByIds(ids);
+    }
+
+    @PostMapping(value = "/create", consumes = "multipart/form-data")
     public Brochure create(@ModelAttribute BrochureDtoRequset brochureDto) throws Exception {
         Brochure response = brochureService.create(brochureDto);
+
+        // Tüm kullanıcılara bildirim gönder
+        List<String> tokens = tokenRepository.findAll()
+                .stream()
+                .map(a->a.getToken())
+                .toList();
+
+        pushNotificationService.sendNotification(
+                "Yeni Broşür Yayında!",
+                response.getDescription() + " broşürü eklenmiştir. Hemen inceleyin!",
+                tokens
+        );
         return response;
     }
 
 
-    @PutMapping(value="/update/{id}",consumes = "multipart/form-data")
+    @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
     public Brochure update(@PathVariable Long id, @ModelAttribute BrochureDtoRequset brochureDto) throws IOException {
         return brochureService.update(id, brochureDto);
     }

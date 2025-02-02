@@ -2,6 +2,7 @@ package com.example.mag.aktuelapi.service;
 
 import com.example.mag.aktuelapi.dto.brochure.BrochureDtoRequset;
 import com.example.mag.aktuelapi.dto.brochure.BrochureDtoResponse;
+import com.example.mag.aktuelapi.dto.brochure.BrochureSummaryDto;
 import com.example.mag.aktuelapi.model.Brochure;
 import com.example.mag.aktuelapi.model.Mark;
 import com.example.mag.aktuelapi.repository.BrochureRepository;
@@ -23,17 +24,24 @@ public class BrochureService {
     }
 
 
-    public List<BrochureDtoResponse> getBrochureByMarkId(Long markId) {
+    public List<BrochureSummaryDto> getBrochureByMarkId(Long markId) {
+        return  brochureRepository.findByMarkId(markId);
+    }
+
+    //todo brochureRepository.findAllById response dto cevrilecek az deger cekecek
+    public List<BrochureDtoResponse> getSummaryByIds(List<Long> idList) {
         List<BrochureDtoResponse> brochureDtoResponseList = new ArrayList<>();
-        List<Brochure> brochureList = brochureRepository.findByMarkId(markId);
+        List<Brochure> brochureList = brochureRepository.findAllById(idList);
         brochureList.forEach(brochure -> {
             BrochureDtoResponse brochureDtoResponse = new BrochureDtoResponse();
             brochureDtoResponse.setId(brochure.getId());
             brochureDtoResponse.setDescription(brochure.getDescription());
+            brochureDtoResponse.setMarkId(brochure.getMarkId());
             brochureDtoResponseList.add(brochureDtoResponse);
         });
         return brochureDtoResponseList;
     }
+
 
 
     public BrochureDtoResponse getBrochureId(Long id) {
